@@ -560,11 +560,18 @@ img {
 
 .screenshot-phone {
     width: 200px;
-    height: 420px;
     background: var(--bg-dark);
     border-radius: 30px;
     padding: 8px;
     margin-bottom: var(--space-sm);
+    overflow: hidden;
+}
+
+.screenshot-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 24px;
 }
 
 .screenshot-content {
@@ -927,7 +934,6 @@ img {
 
     .screenshot-phone {
         width: 160px;
-        height: 340px;
     }
 
     .download-buttons {
