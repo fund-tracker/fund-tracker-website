@@ -15,22 +15,27 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- 导航栏 -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="nav-logo">
-                <span class="logo-icon">📊</span>
+                <img src="images/app-icon.png" alt="基金记账簿" class="logo-icon-img">
                 <span class="logo-text">基金记账簿</span>
             </a>
-            <div class="nav-links">
+            <div class="nav-links" id="navLinks">
                 <a href="#features">功能</a>
                 <a href="#screenshots">截图</a>
                 <a href="#download">下载</a>
             </div>
-            <button class="nav-toggle" aria-label="菜单">
+            <button class="nav-toggle" id="navToggle" aria-label="菜单">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -40,155 +45,193 @@
 
     <!-- Hero 区域 -->
     <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-orb hero-orb-3"></div>
+            <div class="hero-grid-lines"></div>
+        </div>
         <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">基金记账簿</h1>
-                <p class="hero-subtitle">专业的基金投资记录与收益追踪工具</p>
+            <div class="hero-content" data-animate="fade-up">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    iOS 基金投资工具
+                </div>
+                <h1 class="hero-title">
+                    每一笔投资<br>
+                    <span class="hero-title-accent">尽在掌握</span>
+                </h1>
                 <p class="hero-description">
-                    记录每一笔买入，追踪每一次净值变化<br>
-                    清晰掌握您的投资盈亏
+                    记录买入、追踪净值、分析盈亏、智能定投<br>
+                    让基金投资管理变得简单而清晰
                 </p>
                 <div class="hero-buttons">
-                    <a href="#download" class="btn btn-primary">
+                    <a href="https://apps.apple.com/app/id6758606165" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                         </svg>
-                        App Store
+                        App Store 下载
+                    </a>
+                    <a href="#features" class="btn btn-ghost">
+                        了解更多
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 6l4 4 4-4"/>
+                        </svg>
                     </a>
                 </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value" data-count="6">6</span>
+                        <span class="hero-stat-label">核心功能</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">实时</span>
+                        <span class="hero-stat-label">净值同步</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">0</span>
+                        <span class="hero-stat-label">广告打扰</span>
+                    </div>
+                </div>
             </div>
-            <div class="hero-mockup">
-                <div class="phone-frame">
-                    <div class="phone-screen">
-                        <div class="app-preview">
-                            <div class="preview-header">
-                                <span class="preview-title">我的基金</span>
-                                <span class="preview-date">2024-01-15</span>
-                            </div>
-                            <div class="preview-summary">
-                                <div class="summary-item">
-                                    <span class="summary-label">总市值</span>
-                                    <span class="summary-value">¥52,680.00</span>
-                                </div>
-                                <div class="summary-item profit">
-                                    <span class="summary-label">总收益</span>
-                                    <span class="summary-value">+¥3,280.00</span>
-                                </div>
-                            </div>
-                            <div class="preview-list">
-                                <div class="fund-item">
-                                    <div class="fund-info">
-                                        <span class="fund-name">易方达蓝筹精选</span>
-                                        <span class="fund-code">005827</span>
-                                    </div>
-                                    <div class="fund-profit profit">+8.52%</div>
-                                </div>
-                                <div class="fund-item">
-                                    <div class="fund-info">
-                                        <span class="fund-name">中欧医疗健康</span>
-                                        <span class="fund-code">003095</span>
-                                    </div>
-                                    <div class="fund-profit loss">-3.21%</div>
-                                </div>
-                                <div class="fund-item">
-                                    <div class="fund-info">
-                                        <span class="fund-name">招商中证白酒</span>
-                                        <span class="fund-code">161725</span>
-                                    </div>
-                                    <div class="fund-profit profit">+12.35%</div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="hero-visual" data-animate="fade-up" data-delay="200">
+                <div class="hero-phone">
+                    <div class="phone-notch"></div>
+                    <img src="images/AppStore-1-首页总览.png" alt="基金记账簿首页" class="phone-screenshot">
+                </div>
+                <div class="hero-float-card float-card-profit" data-animate="fade-left" data-delay="600">
+                    <div class="float-card-icon profit-icon">↑</div>
+                    <div class="float-card-text">
+                        <span class="float-card-label">今日收益</span>
+                        <span class="float-card-value profit-text">+¥328.50</span>
+                    </div>
+                </div>
+                <div class="hero-float-card float-card-nav" data-animate="fade-right" data-delay="800">
+                    <div class="float-card-icon nav-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 8h12M8 2v12"/>
+                        </svg>
+                    </div>
+                    <div class="float-card-text">
+                        <span class="float-card-label">净值已更新</span>
+                        <span class="float-card-value">1.2350</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="hero-bg"></div>
     </section>
 
     <!-- 核心功能 -->
     <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title">核心功能</h2>
-            <p class="section-subtitle">简单易用，专注于基金投资记录</p>
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">功能</span>
+                <h2 class="section-title">六大核心能力</h2>
+                <p class="section-subtitle">从买入记录到收益提醒，覆盖基金投资全流程</p>
+            </div>
             <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div class="feature-card" data-animate="fade-up" data-delay="0">
+                    <div class="feature-card-number">01</div>
+                    <div class="feature-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 20V10M18 20V4M6 20v-4"/>
                         </svg>
                     </div>
                     <h3 class="feature-title">记录买入</h3>
-                    <p class="feature-desc">快速记录基金买入，自动计算份额，支持手动输入净值</p>
+                    <p class="feature-desc">快速记录基金买入，自动计算份额与成本，支持手动输入净值</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div class="feature-card" data-animate="fade-up" data-delay="80">
+                    <div class="feature-card-number">02</div>
+                    <div class="feature-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                         </svg>
                     </div>
                     <h3 class="feature-title">追踪净值</h3>
-                    <p class="feature-desc">实时同步天天基金网净值数据，一键刷新所有基金</p>
+                    <p class="feature-desc">实时同步天天基金网数据，一键刷新全部基金最新净值</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div class="feature-card" data-animate="fade-up" data-delay="160">
+                    <div class="feature-card-number">03</div>
+                    <div class="feature-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"/>
                             <path d="M12 6v6l4 2"/>
                         </svg>
                     </div>
                     <h3 class="feature-title">分析盈亏</h3>
-                    <p class="feature-desc">双维度盈亏计算：当前浮动收益 + 已实现收益</p>
+                    <p class="feature-desc">双维度盈亏计算：当前浮动收益与已实现收益一目了然</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div class="feature-card" data-animate="fade-up" data-delay="240">
+                    <div class="feature-card-number">04</div>
+                    <div class="feature-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="3" width="18" height="18" rx="2"/>
                             <path d="M9 12l2 2 4-4"/>
                         </svg>
                     </div>
                     <h3 class="feature-title">管理卖出</h3>
-                    <p class="feature-desc">多笔选择，一键汇总，确认卖出，记录完整</p>
+                    <p class="feature-desc">多笔选择一键汇总，确认卖出记录完整，操作简单直观</p>
+                </div>
+                <div class="feature-card feature-card-highlight" data-animate="fade-up" data-delay="320">
+                    <div class="feature-card-badge">新功能</div>
+                    <div class="feature-card-number">05</div>
+                    <div class="feature-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">定投计划</h3>
+                    <p class="feature-desc">创建智能定投计划，每次定投自动同步记录，告别手动录入</p>
+                </div>
+                <div class="feature-card feature-card-highlight" data-animate="fade-up" data-delay="400">
+                    <div class="feature-card-badge">新功能</div>
+                    <div class="feature-card-number">06</div>
+                    <div class="feature-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">收益提醒</h3>
+                    <p class="feature-desc">设置目标收益率，达标时自动提醒，不错过最佳卖点</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 功能亮点 -->
-    <section class="highlights">
+    <!-- 功能亮点数据 -->
+    <section class="metrics">
         <div class="container">
-            <div class="highlight-grid">
-                <div class="highlight-item">
-                    <div class="highlight-number">2</div>
-                    <div class="highlight-text">
-                        <h4>双维度盈亏</h4>
-                        <p>区分当前浮动盈亏和已实现盈亏，全面掌握投资状况</p>
-                    </div>
+            <div class="metrics-grid" data-animate="fade-up">
+                <div class="metric-item">
+                    <div class="metric-value">2</div>
+                    <div class="metric-label">双维度盈亏分析</div>
+                    <div class="metric-desc">区分浮动盈亏和已实现盈亏</div>
                 </div>
-                <div class="highlight-item">
-                    <div class="highlight-number">N</div>
-                    <div class="highlight-text">
-                        <h4>多笔汇总</h4>
-                        <p>选择多笔持有记录，实时计算综合成本、市值、收益率</p>
-                    </div>
+                <div class="metric-item">
+                    <div class="metric-value">N</div>
+                    <div class="metric-label">多笔汇总</div>
+                    <div class="metric-desc">选择多笔记录，实时计算综合收益率</div>
                 </div>
-                <div class="highlight-item">
-                    <div class="highlight-number highlight-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
+                <div class="metric-item">
+                    <div class="metric-value metric-value-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                         </svg>
                     </div>
-                    <div class="highlight-text">
-                        <h4>净值自动更新</h4>
-                        <p>接入天天基金网 API，获取最新净值数据</p>
-                    </div>
+                    <div class="metric-label">净值自动更新</div>
+                    <div class="metric-desc">接入天天基金网实时数据</div>
                 </div>
-                <div class="highlight-item">
-                    <div class="highlight-number highlight-china">¥</div>
-                    <div class="highlight-text">
-                        <h4>中国市场习惯</h4>
-                        <p>红涨绿跌配色，符合国内投资者的视觉习惯</p>
+                <div class="metric-item">
+                    <div class="metric-value metric-value-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/>
+                        </svg>
                     </div>
+                    <div class="metric-label">本地存储</div>
+                    <div class="metric-desc">数据存于设备，隐私安全有保障</div>
                 </div>
             </div>
         </div>
@@ -197,53 +240,89 @@
     <!-- 应用截图 -->
     <section class="screenshots" id="screenshots">
         <div class="container">
-            <h2 class="section-title">应用截图</h2>
-            <p class="section-subtitle">简洁直观的界面设计</p>
-            <div class="screenshot-scroll">
-                <div class="screenshot-track">
-                    <div class="screenshot-item">
-                        <div class="screenshot-phone">
-                            <img src="images/screenshot-home.png" alt="首页列表" class="screenshot-img">
-                        </div>
-                        <span class="screenshot-label">首页列表</span>
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">预览</span>
+                <h2 class="section-title">精心打磨每一个细节</h2>
+                <p class="section-subtitle">简洁直观的界面设计，让投资管理赏心悦目</p>
+            </div>
+        </div>
+        <div class="screenshot-carousel" data-animate="fade-up" data-delay="200">
+            <div class="screenshot-track" id="screenshotTrack">
+                <div class="screenshot-slide">
+                    <div class="screenshot-phone-frame">
+                        <img src="images/AppStore-1-首页总览.png" alt="轻松掌握基金收益" class="screenshot-img" loading="lazy">
                     </div>
-                    <div class="screenshot-item">
-                        <div class="screenshot-phone">
-                            <img src="images/screenshot-detail.png" alt="基金详情" class="screenshot-img">
-                        </div>
-                        <span class="screenshot-label">基金详情</span>
-                    </div>
-                    <div class="screenshot-item">
-                        <div class="screenshot-phone">
-                            <img src="images/screenshot-sell.png" alt="多选卖出" class="screenshot-img">
-                        </div>
-                        <span class="screenshot-label">多选卖出</span>
-                    </div>
-                    <div class="screenshot-item">
-                        <div class="screenshot-phone">
-                            <img src="images/screenshot-add.png" alt="添加记录" class="screenshot-img">
-                        </div>
-                        <span class="screenshot-label">添加记录</span>
+                    <div class="screenshot-caption">
+                        <h4>首页总览</h4>
+                        <p>轻松掌握基金收益全局</p>
                     </div>
                 </div>
+                <div class="screenshot-slide">
+                    <div class="screenshot-phone-frame">
+                        <img src="images/AppStore-2-基金详情.png" alt="每笔投资，清晰可见" class="screenshot-img" loading="lazy">
+                    </div>
+                    <div class="screenshot-caption">
+                        <h4>基金详情</h4>
+                        <p>每笔投资清晰可见</p>
+                    </div>
+                </div>
+                <div class="screenshot-slide">
+                    <div class="screenshot-phone-frame">
+                        <img src="images/AppStore-3-智能定投.png" alt="定投同步记录，告别手动录入" class="screenshot-img" loading="lazy">
+                    </div>
+                    <div class="screenshot-caption">
+                        <h4>智能定投</h4>
+                        <p>定投自动同步，告别手动录入</p>
+                    </div>
+                </div>
+                <div class="screenshot-slide">
+                    <div class="screenshot-phone-frame">
+                        <img src="images/AppStore-4-收益提醒.png" alt="达标即提醒，不错过最佳卖点" class="screenshot-img" loading="lazy">
+                    </div>
+                    <div class="screenshot-caption">
+                        <h4>收益提醒</h4>
+                        <p>达标即提醒，不错过卖点</p>
+                    </div>
+                </div>
+            </div>
+            <div class="screenshot-controls">
+                <button class="screenshot-btn screenshot-prev" id="screenshotPrev" aria-label="上一张">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4l-6 6 6 6"/></svg>
+                </button>
+                <div class="screenshot-dots" id="screenshotDots">
+                    <button class="screenshot-dot active" data-index="0"></button>
+                    <button class="screenshot-dot" data-index="1"></button>
+                    <button class="screenshot-dot" data-index="2"></button>
+                    <button class="screenshot-dot" data-index="3"></button>
+                </div>
+                <button class="screenshot-btn screenshot-next" id="screenshotNext" aria-label="下一张">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4l6 6-6 6"/></svg>
+                </button>
             </div>
         </div>
     </section>
 
     <!-- 下载区 -->
     <section class="download" id="download">
+        <div class="download-bg">
+            <div class="download-orb download-orb-1"></div>
+            <div class="download-orb download-orb-2"></div>
+        </div>
         <div class="container">
-            <h2 class="section-title">立即下载</h2>
-            <p class="section-subtitle">开始记录您的投资之旅</p>
-            <div class="download-buttons">
-                <a href="#" class="download-btn download-appstore">
-                    <svg class="download-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                    </svg>
-                    <div class="download-text">
-                        <span class="download-label">即将上架</span>
-                        <span class="download-store">App Store</span>
+            <div class="download-content" data-animate="fade-up">
+                <h2 class="download-title">开始掌控你的<br>基金投资</h2>
+                <p class="download-subtitle">无广告，无订阅，专注投资记录</p>
+                <a href="https://apps.apple.com/app/id6758606165" target="_blank" rel="noopener noreferrer" class="download-cta">
+                    <div class="download-cta-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                        </svg>
                     </div>
+                    <div class="download-cta-text">
+                        <span class="download-cta-small">立即下载</span>
+                        <span class="download-cta-large">App Store</span>
+                    </div>
+                    <svg class="download-cta-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M12 4l6 6-6 6"/></svg>
                 </a>
             </div>
         </div>
@@ -252,19 +331,23 @@
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <span class="logo-icon">📊</span>
-                    <span class="logo-text">基金记账簿</span>
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="images/app-icon.png" alt="基金记账簿" class="footer-logo-img">
+                        <span>基金记账簿</span>
+                    </div>
+                    <p class="footer-tagline">专业的基金投资记录与收益追踪工具</p>
                 </div>
-                <div class="footer-links">
+                <div class="footer-nav">
                     <a href="#features">功能介绍</a>
+                    <a href="#screenshots">应用截图</a>
                     <a href="#download">下载</a>
                     <a href="privacy.html">隐私政策</a>
                 </div>
-                <p class="footer-copyright">
-                    &copy; 2024 基金记账簿. All rights reserved.
-                </p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 - 2025 基金记账簿. All rights reserved.</p>
             </div>
         </div>
     </footer>

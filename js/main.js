@@ -1,152 +1,206 @@
 /**
- * 基金记账簿官网交互脚本
+ * 基金记账簿官网 — 交互与动画
  */
-
-(function() {
+(function () {
     'use strict';
 
-    // DOM Ready
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         initNavigation();
-        initSmoothScroll();
-        initScrollAnimations();
         initNavbarScroll();
+        initSmoothScroll();
+        initScreenshotCarousel();
+        // Delay animation init to ensure layout is complete
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                initScrollAnimations();
+            });
+        });
     });
 
-    /**
-     * 移动端导航菜单
-     */
+    /* ========================
+       Navigation
+       ======================== */
     function initNavigation() {
-        const navToggle = document.querySelector('.nav-toggle');
-        const navLinks = document.querySelector('.nav-links');
+        var toggle = document.getElementById('navToggle');
+        var links = document.getElementById('navLinks');
+        if (!toggle || !links) return;
 
-        if (navToggle && navLinks) {
-            navToggle.addEventListener('click', function() {
-                navLinks.classList.toggle('nav-open');
-                navToggle.classList.toggle('active');
-            });
+        toggle.addEventListener('click', function () {
+            links.classList.toggle('nav-open');
+            toggle.classList.toggle('active');
+        });
 
-            // 点击链接后关闭菜单
-            navLinks.querySelectorAll('a').forEach(function(link) {
-                link.addEventListener('click', function() {
-                    navLinks.classList.remove('nav-open');
-                    navToggle.classList.remove('active');
-                });
+        links.querySelectorAll('a').forEach(function (a) {
+            a.addEventListener('click', function () {
+                links.classList.remove('nav-open');
+                toggle.classList.remove('active');
             });
-        }
+        });
     }
 
-    /**
-     * 平滑滚动
-     */
-    function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
+    /* ========================
+       Navbar scroll effect
+       ======================== */
+    function initNavbarScroll() {
+        var navbar = document.getElementById('navbar');
+        if (!navbar) return;
 
+        function onScroll() {
+            if (window.pageYOffset > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    }
+
+    /* ========================
+       Smooth scroll
+       ======================== */
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                var targetId = this.getAttribute('href');
                 if (targetId === '#') return;
 
-                const target = document.querySelector(targetId);
-                if (target) {
-                    const navHeight = document.querySelector('.navbar').offsetHeight;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                var target = document.querySelector(targetId);
+                if (!target) return;
 
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
+                e.preventDefault();
+                var navH = document.querySelector('.navbar').offsetHeight;
+                var top = target.getBoundingClientRect().top + window.pageYOffset - navH;
+
+                window.scrollTo({ top: top, behavior: 'smooth' });
             });
         });
     }
 
-    /**
-     * 滚动动画
-     */
+    /* ========================
+       Scroll-triggered animations
+       ======================== */
     function initScrollAnimations() {
-        const animateElements = document.querySelectorAll(
-            '.feature-card, .highlight-item, .screenshot-item'
+        var elements = document.querySelectorAll('[data-animate]');
+        if (!elements.length) return;
+
+        // Reveal an element with its configured delay
+        function reveal(el) {
+            var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+            setTimeout(function () {
+                el.classList.add('is-visible');
+            }, delay);
+        }
+
+        // For elements already in the viewport on load, reveal immediately
+        elements.forEach(function (el) {
+            var rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                reveal(el);
+                el.setAttribute('data-revealed', 'true');
+            }
+        });
+
+        // Observe remaining elements for scroll-triggered reveal
+        var observer = new IntersectionObserver(
+            function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        reveal(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
         );
 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        animateElements.forEach(function(el, index) {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transitionDelay = (index % 4) * 0.1 + 's';
-            observer.observe(el);
-        });
-    }
-
-    /**
-     * 导航栏滚动效果
-     */
-    function initNavbarScroll() {
-        const navbar = document.querySelector('.navbar');
-        let lastScroll = 0;
-
-        window.addEventListener('scroll', function() {
-            const currentScroll = window.pageYOffset;
-
-            // 添加阴影效果
-            if (currentScroll > 10) {
-                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                navbar.style.boxShadow = 'none';
+        elements.forEach(function (el) {
+            if (!el.getAttribute('data-revealed')) {
+                observer.observe(el);
             }
-
-            lastScroll = currentScroll;
-        }, { passive: true });
+        });
     }
 
-    /**
-     * 截图横向滚动（可选：鼠标拖拽）
-     */
-    function initScreenshotScroll() {
-        const scrollContainer = document.querySelector('.screenshot-scroll');
-        if (!scrollContainer) return;
+    /* ========================
+       Screenshot Carousel
+       ======================== */
+    function initScreenshotCarousel() {
+        var track = document.getElementById('screenshotTrack');
+        var prevBtn = document.getElementById('screenshotPrev');
+        var nextBtn = document.getElementById('screenshotNext');
+        var dotsContainer = document.getElementById('screenshotDots');
 
-        let isDown = false;
-        let startX;
-        let scrollLeft;
+        if (!track || !prevBtn || !nextBtn || !dotsContainer) return;
 
-        scrollContainer.addEventListener('mousedown', function(e) {
-            isDown = true;
-            scrollContainer.classList.add('active');
-            startX = e.pageX - scrollContainer.offsetLeft;
-            scrollLeft = scrollContainer.scrollLeft;
+        var slides = track.querySelectorAll('.screenshot-slide');
+        var dots = dotsContainer.querySelectorAll('.screenshot-dot');
+        var currentIndex = 0;
+        var total = slides.length;
+        var autoTimer = null;
+
+        function goTo(index) {
+            if (index < 0) index = total - 1;
+            if (index >= total) index = 0;
+            currentIndex = index;
+
+            track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+
+            dots.forEach(function (dot, i) {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        function next() { goTo(currentIndex + 1); }
+        function prev() { goTo(currentIndex - 1); }
+
+        prevBtn.addEventListener('click', function () {
+            prev();
+            resetAuto();
         });
 
-        scrollContainer.addEventListener('mouseleave', function() {
-            isDown = false;
-            scrollContainer.classList.remove('active');
+        nextBtn.addEventListener('click', function () {
+            next();
+            resetAuto();
         });
 
-        scrollContainer.addEventListener('mouseup', function() {
-            isDown = false;
-            scrollContainer.classList.remove('active');
+        dots.forEach(function (dot) {
+            dot.addEventListener('click', function () {
+                goTo(parseInt(this.getAttribute('data-index'), 10));
+                resetAuto();
+            });
         });
 
-        scrollContainer.addEventListener('mousemove', function(e) {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - scrollContainer.offsetLeft;
-            const walk = (x - startX) * 2;
-            scrollContainer.scrollLeft = scrollLeft - walk;
-        });
+        // Touch support
+        var startX = 0;
+        var isDragging = false;
+
+        track.addEventListener('touchstart', function (e) {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        }, { passive: true });
+
+        track.addEventListener('touchend', function (e) {
+            if (!isDragging) return;
+            isDragging = false;
+            var diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? next() : prev();
+                resetAuto();
+            }
+        }, { passive: true });
+
+        // Auto-play
+        function startAuto() {
+            autoTimer = setInterval(next, 4500);
+        }
+
+        function resetAuto() {
+            clearInterval(autoTimer);
+            startAuto();
+        }
+
+        startAuto();
     }
 
 })();
